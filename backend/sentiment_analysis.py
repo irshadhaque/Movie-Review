@@ -9,21 +9,33 @@ def analyze_reviews(csv_file):
     sid = SentimentIntensityAnalyzer()
 
     results = []
-    positive_count = 0
-    negative_count = 0
+    compound_scores = []
 
     # Analyze each review
     for review in df['Review']:
         scores = sid.polarity_scores(review)
-        sentiment = 'Positive' if scores['compound'] >= 0 else 'Negative'
-        results.append({'review': review, 'sentiment': sentiment})
+        compound = scores['compound']
+        compound_scores.append(compound)
 
-        if sentiment == 'Positive':
-            positive_count += 1
+        # Classify sentiment
+        if compound >= 0.05:
+            sentiment = 'Positive'
+        elif compound <= -0.05:
+            sentiment = 'Negative'
         else:
-            negative_count += 1
+            sentiment = 'Neutral'
 
-    # Calculate overall rating
-    total_reviews = positive_count + negative_count
-    overall_rating = (positive_count / total_reviews) * 10 if total_reviews > 0 else 0
-    return results, round(overall_rating, 1)
+        results.append({
+            'review': review,
+            'sentiment': sentiment,
+            'compound_score': compound
+        })
+
+    # Calculate overall rating: average compound score scaled to 0–10
+    if compound_scores:
+        average_compound = sum(compound_scores) / len(compound_scores)
+        overall_rating = round((average_compound + 1) * 5, 1)  # Maps -1:1 to 0:10
+    else:
+        overall_rating = 0.0
+
+    return results, overall_rating
