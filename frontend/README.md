@@ -1,8 +1,28 @@
-# React + Vite
+# 🎬 Movie Sentiment Analyzer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a web-based Movie Sentiment Analyzer that allows users to search for a movie and automatically analyzes its user reviews from IMDb to classify them as **Positive** or **Negative**, and compute an **overall rating** based on sentiment distribution.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
+
+- 🔍 Search for any movie by name
+- 🌐 Automatically scrapes reviews from IMDb in real-time (no CSV storage)
+- 🧠 Analyzes sentiments using VADER Sentiment Analyzer (from NLTK)
+- 📊 Displays sentiment-based rating out of 10
+- ⚡ Built with Flask (backend) and React (frontend)
+
+---
+
+## 🛠️ Technologies Used
+
+- **Frontend**: React.js
+- **Backend**: Flask (Python)
+- **Web Scraping**: BeautifulSoup, `requests`
+- **Sentiment Analysis**: NLTK's VADER
+- **Data Handling**: Pandas (if needed for extended features)
+
+---
+
+## 🧩 Project Structure
+
