@@ -2,22 +2,18 @@ import pandas as pd
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 def analyze_reviews(csv_file):
-    # Load the CSV file
     df = pd.read_csv(csv_file)
 
-    # Initialize the sentiment analyzer
     sid = SentimentIntensityAnalyzer()
 
     results = []
     compound_scores = []
 
-    # Analyze each review
     for review in df['Review']:
         scores = sid.polarity_scores(review)
         compound = scores['compound']
         compound_scores.append(compound)
 
-        # Classify sentiment
         if compound >= 0.05:
             sentiment = 'Positive'
         elif compound <= -0.05:
